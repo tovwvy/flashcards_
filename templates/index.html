@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordSnap</title>
+    <style>
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Вирівнюємо з лівого краю */
+            padding-left: 20px; /* Задаємо відступ зліва */
+        }
+        .button-container a {
+            margin-bottom: 10px;
+        }
+        .user-actions {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .user-actions a {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="font-family: 'Roboto', sans-serif;">WordSnap</h1>
+    <div class="user-actions">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'account_login' %}">Login</a>
+            <a href="{% url 'account_signup' %}">Signup</a>
+        {% endif %}
+    </div>
+    <div class="button-container">
+        <a href="{% url 'flashcards' %}"><button>Flashcards</button></a>
+        <a href="{% url 'tests' %}"><button>Tests</button></a>
+    </div>
+</body>
+</html>

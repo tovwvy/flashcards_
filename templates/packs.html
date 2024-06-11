@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Packs</title>
+    <style>
+        /* Стилі для контейнера */
+        .container {
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        /* Стилі для заголовку */
+        h1 {
+            text-align: center;
+        }
+
+        /* Стилі для списку паків */
+        .pack-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Стилі для пака */
+        .pack {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Стилі для кнопки додавання пака */
+        .add-pack-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #800080;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flashcard Packs</h1>
+
+        <!-- Список паків -->
+        <ul class="pack-list">
+            <!-- Вставте блок коду з Django шаблону тут -->
+            {% for pack in packs %}
+            <li class="pack">
+                <h3>{{ pack.name }}</h3>
+                <p>{{ pack.description }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Кнопка для додавання нового пака -->
+        <a href="{% url 'add_pack' %}" class="add-pack-button">Add New Pack</a>
+    </div>
+</body>
+</html>

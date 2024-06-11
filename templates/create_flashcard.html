@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Flashcards - WordSnap</title>
+    <style>
+        /* Змінюємо стиль кнопок */
+        .button-container a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: 150px;
+            background-color: #800080;
+            color: white;
+        }
+
+        /* Стилі для активних кнопок */
+        .button-container a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Вирівнювання тексту */
+        .button-container {
+            text-align: left;
+        }
+
+        /* Вирівнювання форми по центру екрану */
+        .form-container {
+            width: 50%; /* Змінено ширину форми */
+            margin: 0 auto; /* Центрування по горизонталі */
+            text-align: center; /* Вирівнювання тексту у формі по центру */
+        }
+
+        /* Стилі для спливаючого вікна */
+        .modal {
+            display: none; /* Починаємо з прихованого вікна */
+            position: fixed; /* Фіксована позиція */
+            z-index: 1; /* Вищий ніж звичайний контент */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Дозволяє прокручування сторінки, якщо контент виходить за межі */
+            background-color: rgba(0,0,0,0.4); /* Чорний фон з прозорістю */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* Вирівнювання по центру, по горизонталі та вертикалі */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Змінено ширину контенту */
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="{% url 'index' %}">WordSnap</a></h1>
+   <div class="button-container">
+    <a href="{% url 'flashcards' %}" class="{% if request.path == '/flashcards/' %}active{% endif %}">Flashcards</a>
+    <a href="{% url 'tests' %}" class="{% if request.path == '/tests/' %}active{% endif %}">Tests</a>
+    <a href="{% url 'create_flashcard' %}" class="{% if request.path == '/create_flashcard/' %}active{% endif %}">Create Flashcards</a>
+    <a href="{% url 'packs' %}" class="{% if request.path == '/packs/' %}active{% endif %}">Packs</a>
+    <a href="{% url 'dictionary' %}" class="{% if request.path == '/dictionary/' %}active{% endif %}">Dictionary</a>
+</div>
+
+
+    <!-- Форма створення флеш карток -->
+<!-- Форма створення флеш карток -->
+<div class="form-container">
+    <h2>Create New Flashcard</h2>
+    <form id="flashcard-form" action="{% url 'create_flashcard' %}" method="post">
+        {% csrf_token %}
+        <label for="ukrainian_word">Українське слово:</label>
+        <input type="text" id="ukrainian_word" name="ukrainian_word" required>
+
+        <label for="english_word">Англійське слово:</label>
+        <input type="text" id="english_word" name="english_word" required>
+
+        <!-- Випадаючий список для вибору паку -->
+        <label for="pack">Оберіть пак:</label>
+        <select name="pack" id="pack">
+            <option value="beginner">Початковий рівень</option>
+            <option value="intermediate">Середній рівень</option>
+            <option value="advanced">Високий рівень</option>
+            <!-- Додайте інші паки за потребою -->
+        </select>
+
+        <button type="submit">Створити</button>
+    </form>
+</div>
+<!-- Список флеш-карток -->
+<div id="flashcards-list">
+    <!-- Тут буде відображений список флеш-карток, отриманий через AJAX -->
+</div>
+
+
+    <!-- Спливаюче вікно -->
+    <div id="flashcard-created-modal" class="modal">
+        <div class="modal-content">
+            <h4>Flashcard Created</h4>
+            <p>Your flashcard has been successfully created!</p>
+        </div>
+    </div>
+
+    <script>
+   window.onload = function() {
+    // JavaScript для відображення спливаючого вікна після створення флеш-картки
+    document.getElementById('flashcard-form').addEventListener('submit', function(event) {
+        var form = this;
+        event.preventDefault(); // Зупиняємо дійсну подію submit
+
+        // Виконуємо AJAX-запит для надсилання даних форми
+        var xhr = new XMLHttpRequest();
+        xhr.open(form.method, form.action, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Після успішного відправлення форми, показуємо спливаюче вікно
+                var modal = document.getElementById('flashcard-created-modal');
+                modal.style.display = 'block';
+                setTimeout(function() {
+                    modal.style.display = 'none';
+                    updateFlashcardsList(); // Оновлюємо список флеш-карток після закриття спливаючого вікна
+                }, 3000); // Закриття спливаючого вікна через 3 секунди
+                // Очищаємо форму
+                form.reset();
+            } else {
+                console.error(xhr.statusText);
+            }
+        };
+        xhr.onerror = function () {
+            console.error(xhr.statusText);
+        };
+
+        // Формуємо дані для відправлення на сервер (флеш-картка та словник)
+        var formData = new FormData(form);
+        formData.append('ukrainian_word', form.elements['ukrainian_word'].value);
+        formData.append('english_word', form.elements['english_word'].value);
+
+        // Відправляємо дані на сервер
+        xhr.send(formData);
+    });
+
+    // Функція для оновлення списку флеш-карток
+  // Оновлення списку флеш-карток
+function updateFlashcardsList() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '{% url 'flashcards' %}', true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var flashcardsList = document.getElementById('flashcards-list');
+            // Очищаємо список
+            flashcardsList.innerHTML = xhr.responseText;
+        } else {
+            console.error(xhr.statusText);
+        }
+    };
+    xhr.onerror = function () {
+        console.error(xhr.statusText);
+    };
+    xhr.send();
+}
+
+};
+
+    </script>
+</body>
+</html>

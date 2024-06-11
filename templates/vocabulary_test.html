@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <style>
+        .button-container {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .button-container button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #800080;
+            color: white;
+            cursor: pointer;
+        }
+
+        .button-container button.active {
+            background-color: #4CAF50;
+        }
+
+        #flashcardContainer {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #flashcard {
+            width: 1000px;
+            height: 400px;
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #wordContainer {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #imageContainer {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        #wordImage {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #ukrainianWord, #englishWord {
+            font-size: 24px;
+        }
+
+        .highlighted {
+            background-color: #FFD700;
+        }
+
+        .extra-button-container {
+            text-align: left;
+        }
+
+        .delete-button, .save-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #DC143C;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .button-container button {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="{% url 'index' %}">WordSnap</a></h1>
+    <div class="button-container">
+        <button onclick="window.location.href='{% url 'flashcards' %}'" class="{% if request.path == '/flashcards/' %}active{% endif %}">Flashcards</button>
+        <button onclick="window.location.href='{% url 'tests' %}'" class="{% if request.path == '/tests/' %}active{% endif %}">Tests</button>
+        <button onclick="window.location.href='{% url 'vocabulary_test' %}'" class="{% if request.path == '/vocabulary_test/' %}active{% endif %}">Vocabulary Test</button>
+    </div>
+
+    <h1>WordSnap - Vocabulary Test</h1>
+
+    <div id="test-container">
+        <p>Select the words you know:</p>
+        <form id="vocabulary-test">
+            <div class="question">
+                <p>Level 1: Easy Words</p>
+                <label><input type="checkbox" name="easy" value="Hello"> Hello</label>
+                <label><input type="checkbox" name="easy" value="Goodbye"> Goodbye</label>
+                <label><input type="checkbox" name="easy" value="Thank you"> Thank you</label>
+                <!-- Adding 7 more easy words -->
+                <label><input type="checkbox" name="easy" value="Please"> Please</label>
+                <label><input type="checkbox" name="easy" value="Sorry"> Sorry</label>
+                <label><input type="checkbox" name="easy" value="Yes"> Yes</label>
+                <label><input type="checkbox" name="easy" value="No"> No</label>
+                <label><input type="checkbox" name="easy" value="Good"> Good</label>
+                <label><input type="checkbox" name="easy" value="Bad"> Bad</label>
+                <label><input type="checkbox" name="easy" value="Happy"> Happy</label>
+            </div>
+            <div class="question">
+                <p>Level 2: Intermediate Words</p>
+                <label><input type="checkbox" name="intermediate" value="Hope"> Hope</label>
+                <label><input type="checkbox" name="intermediate" value="Happiness"> Happiness</label>
+                <label><input type="checkbox" name="intermediate" value="Friend"> Friend</label>
+                <!-- Adding 7 more intermediate words -->
+                <label><input type="checkbox" name="intermediate" value="Enemy"> Enemy</label>
+                <label><input type="checkbox" name="intermediate" value="Love"> Love</label>
+                <label><input type="checkbox" name="intermediate" value="Fear"> Fear</label>
+                <label><input type="checkbox" name="intermediate" value="Family"> Family</label>
+                <label><input type="checkbox" name="intermediate" value="Fun"> Fun</label>
+                <label><input type="checkbox" name="intermediate" value="Sadness"> Sadness</label>
+                <label><input type="checkbox" name="intermediate" value="Anger"> Anger</label>
+            </div>
+            <div class="question">
+                <p>Level 3: Moderate Words</p>
+                <label><input type="checkbox" name="moderate" value="Kind"> Kind</label>
+                <label><input type="checkbox" name="moderate" value="Beautiful"> Beautiful</label>
+                <label><input type="checkbox" name="moderate" value="Interesting"> Interesting</label>
+                <!-- Adding 7 more moderate words -->
+                <label><input type="checkbox" name="moderate" value="Wonderful"> Wonderful</label>
+                <label><input type="checkbox" name="moderate" value="Amazing"> Amazing</label>
+                <label><input type="checkbox" name="moderate" value="Exciting"> Exciting</label>
+                <label><input type="checkbox" name="moderate" value="Fascinating"> Fascinating</label>
+                <label><input type="checkbox" name="moderate" value="Different"> Different</label>
+                <label><input type="checkbox" name="moderate" value="Important"> Important</label>
+                <label><input type="checkbox" name="moderate" value="Surprising"> Surprising</label>
+            </div>
+            <div class="
+question">
+                <p>Level 4: Challenging Words</p>
+                <label><input type="checkbox" name="challenging" value="Convenient"> Convenient</label>
+                <label><input type="checkbox" name="challenging" value="Difficult"> Difficult</label>
+                <label><input type="checkbox" name="challenging" value="Complicated"> Complicated</label>
+                <!-- Adding 7 more challenging words -->
+                <label><input type="checkbox" name="challenging" value="Sophisticated"> Sophisticated</label>
+                <label><input type="checkbox" name="challenging" value="Extravagant"> Extravagant</label>
+                <label><input type="checkbox" name="challenging" value="Incredible"> Incredible</label>
+                <label><input type="checkbox" name="challenging" value="Fantastic"> Fantastic</label>
+                <label><input type="checkbox" name="challenging" value="Extraordinary"> Extraordinary</label>
+                <label><input type="checkbox" name="challenging" value="Compelling"> Compelling</label>
+            </div>
+            <div class="question">
+                <p>Level 5: Advanced Words</p>
+                <label><input type="checkbox" name="advanced" value="Magnificent"> Magnificent</label>
+                <label><input type="checkbox" name="advanced" value="Exceptional"> Exceptional</label>
+                <label><input type="checkbox" name="advanced" value="Spectacular"> Spectacular</label>
+                <!-- Adding 6 more advanced words -->
+                <label><input type="checkbox" name="advanced" value="Unbelievable"> Unbelievable</label>
+                <label><input type="checkbox" name="advanced" value="Phenomenal"> Phenomenal</label>
+                <label><input type="checkbox" name="advanced" value="Extraordinary"> Extraordinary</label>
+                <label><input type="checkbox" name="advanced" value="Unprecedented"> Unprecedented</label>
+                <label><input type="checkbox" name="advanced" value="Mind-blowing"> Mind-blowing</label>
+                <label><input type="checkbox" name="advanced" value="Incomparable"> Incomparable</label>
+            </div>
+            <button id="submit-btn" type="button">Submit</button>
+        </form>
+        <div id="result-container" style="display: none;">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            var levels = ["easy", "intermediate", "moderate", "challenging", "advanced"];
+            var totalWords = 0;
+
+            levels.forEach(function(level) {
+                var selectedWords = document.querySelectorAll("input[name='" + level + "']:checked").length;
+                totalWords += selectedWords;
+            });
+
+            var estimatedVocabularySize = Math.min(totalWords / 50 * 100, 10000); // Maximum 10000 words
+
+            var resultContainer = document.getElementById("result-container");
+            resultContainer.style.display = "block";
+            resultContainer.innerHTML = "<p>You know approximately " + estimatedVocabularySize.toFixed(0) + " words.</p>";
+        });
+    </script>
+</body>
+</html>

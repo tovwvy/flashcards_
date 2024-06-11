@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordSnap - English Level Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .button-container {
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            display: inline-block;
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #800080;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button-container button:hover {
+            background-color: #4CAF50;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .question p {
+            margin-bottom: 5px;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        #submit-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #800080;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #submit-btn:hover {
+            background-color: #4CAF50;
+        }
+        #result-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="{% url 'index' %}">WordSnap</a></h1>
+   <div class="button-container">
+        <button onclick="window.location.href='{% url 'flashcards' %}'">Flashcards</button>
+        <button onclick="window.location.href='{% url 'tests' %}'">Tests</button>
+        <button onclick="window.location.href='{% url 'vocabulary_test' %}'">Vocabulary Test</button> <!-- Нова кнопка -->
+    </div>
+    <!-- English Proficiency Test -->
+    <div id="test-container">
+<!-- Питання 1: Choose the correct option -->
+<div class="question">
+    <p>1. Which of the following is a correct sentence?</p>
+    <label><input type="radio" name="q1" value="She go to school."> She go to school.</label>
+    <label><input type="radio" name="q1" value="He goes to school."> He goes to school.</label>
+    <label><input type="radio" name="q1" value="They is happy."> They is happy.</label>
+</div>
+
+<!-- Питання 2: Choose the correct option -->
+<div class="question">
+    <p>2. What does the word "exquisite" mean?</p>
+    <label><input type="radio" name="q2" value="Beautiful or delicate"> Beautiful or delicate</label>
+    <label><input type="radio" name="q2" value="Large or massive"> Large or massive</label>
+    <label><input type="radio" name="q2" value="Tasty or delicious"> Tasty or delicious</label>
+</div>
+
+<!-- Питання 3: Choose the correct option -->
+<div class="question">
+    <p>3. What is the past tense of "eat"?</p>
+    <label><input type="radio" name="q3" value="Eated"> Eated</label>
+    <label><input type="radio" name="q3" value="Ate"> Ate</label>
+    <label><input type="radio" name="q3" value="Eaten"> Eaten</label>
+</div>
+
+<!-- Питання 4: Choose the correct option -->
+<div class="question">
+    <p>4. Which sentence is grammatically correct?</p>
+    <label><input type="radio" name="q4" value="He don't like ice cream."> He don't like ice cream.</label>
+    <label><input type="radio" name="q4" value="She don't go to school."> She don't go to school.</label>
+    <label><input type="radio" name="q4" value="They don't like ice cream."> They don't like ice cream.</label>
+</div>
+
+<!-- Питання 5: Choose the correct option -->
+<div class="question">
+    <p>5. What is the plural form of "child"?</p>
+    <label><input type="radio" name="q5" value="Childrens"> Childrens</label>
+    <label><input type="radio" name="q5" value="Childs"> Childs</label>
+    <label><input type="radio" name="q5" value="Children"> Children</label>
+</div>
+
+<!-- Питання 6: Choose the correct option -->
+<div class="question">
+    <p>6. Which word is a synonym for "happy"?</p>
+    <label><input type="radio" name="q6" value="Sad"> Sad</label>
+    <label><input type="radio" name="q6" value="Joyful"> Joyful</label>
+    <label><input type="radio" name="q6" value="Angry"> Angry</label>
+</div>
+
+<!-- Питання 7: Choose the correct option -->
+<div class="question">
+    <p>7. What does the acronym "USA" stand for?</p>
+    <label><input type="radio" name="q7" value="United States of Asia"> United States of Asia</label>
+    <label><input type="radio" name="q7" value="United States of America"> United States of America</label>
+    <label><input type="radio" name="q7" value="United States Agency"> United States Agency</label>
+</div>
+
+<!-- Питання 8: Choose the correct option -->
+<div class="question">
+    <p>8. Which sentence is in the past continuous tense?</p>
+    <label><input type="radio" name="q8" value="She will go to the party."> She will go to the party.</label>
+    <label><input type="radio" name="q8" value="He is watching TV."> He is watching TV.</label>
+    <label><input type="radio" name="q8" value="They were playing football."> They were playing football.</label>
+</div>
+
+<!-- Питання 9: Choose the correct option -->
+<div class="question">
+    <p>9. What is the superlative form of "good"?</p>
+    <label><input type="radio" name="q9" value="Better"> Better</label>
+    <label><input type="radio" name="q9" value="Gooder"> Gooder</label>
+    <label><input type="radio" name="q9" value="Best"> Best</label>
+</div>
+
+<!-- Питання 10: Choose the correct option -->
+<div class="question">
+    <p>10. Which word is a synonym for "beautiful"?</p>
+    <label><input type="radio" name="q10" value="Ugly"> Ugly</label>
+    <label><input type="radio" name="q10" value="Pretty"> Pretty</label>
+    <label><input type="radio" name="q10" value="Handsome"> Handsome</label>
+</div>
+        <!-- Питання 11: Insert the correct word -->
+<div class="question">
+    <p>11. She _____ to the store yesterday.</p>
+    <label><input type="radio" name="q11" value="go"> go</label>
+    <label><input type="radio" name="q11" value="went"> went</label>
+    <label><input type="radio" name="q11" value="gone"> gone</label>
+</div>
+
+<!-- Питання 12: Insert the correct word -->
+<div class="question">
+    <p>12. He has _____ finished his homework.</p>
+    <label><input type="radio" name="q12" value="yet"> yet</label>
+    <label><input type="radio" name="q12" value="already"> already</label>
+    <label><input type="radio" name="q12" value="just"> just</label>
+</div>
+
+<!-- Питання 13: Insert the correct word -->
+<div class="question">
+    <p>13. They _____ playing football when it started to rain.</p>
+    <label><input type="radio" name="q13" value="were"> were</label>
+    <label><input type="radio" name="q13" value="was"> was</label>
+    <label><input type="radio" name="q13" value="are"> are</label>
+</div>
+
+<!-- Питання 14: Insert the correct word -->
+<div class="question">
+    <p>14. If I _____ rich, I would travel the world.</p>
+    <label><input type="radio" name="q14" value="am"> am</label>
+    <label><input type="radio" name="q14" value="was"> was</label>
+    <label><input type="radio" name="q14" value="were"> were</label>
+</div>
+
+<!-- Питання 15: Insert the correct word -->
+<div class="question">
+    <p>15. He _____ his keys if they were not in his bag.</p>
+    <label><input type="radio" name="q15" value="will find"> will find</label>
+    <label><input type="radio" name="q15" value="would find"> would find</label>
+    <label><input type="radio" name="q15" value="finds"> finds</label>
+</div>
+        <!-- Питання 16: Choose the correct tense -->
+<div class="question">
+    <p>16. By next week, they _____ the project.</p>
+    <label><input type="radio" name="q16" value="will complete"> will complete</label>
+    <label><input type="radio" name="q16" value="will have completed"> will have completed</label>
+    <label><input type="radio" name="q16" value="will be completing"> will be completing</label>
+</div>
+
+<!-- Питання 17: Choose the correct tense -->
+<div class="question">
+    <p>17. She said that she _____ the book by the time I arrived.</p>
+    <label><input type="radio" name="q17" value="will finish"> will finish</label>
+    <label><input type="radio" name="q17" value="had finished"> had finished</label>
+    <label><input type="radio" name="q17" value="finishes"> finishes</label>
+</div>
+
+<!-- Питання 18: Choose the correct tense -->
+<div class="question">
+    <p>18. They _____ in the park when it started to rain.</p>
+    <label><input type="radio" name="q18" value="were walking"> were walking</label>
+    <label><input type="radio" name="q18" value="walked"> walked</label>
+    <label><input type="radio" name="q18" value="are walking"> are walking</label>
+</div>
+
+<!-- Питання 19: Choose the correct tense -->
+<div class="question">
+    <p>19. By the time he gets home, we _____ dinner.</p>
+    <label><input type="radio" name="q19" value="will prepare"> will prepare</label>
+    <label><input type="radio" name="q19" value="will have prepared"> will have prepared</label>
+    <label><input type="radio" name="q19" value="prepare"> prepare</label>
+</div>
+
+<!-- Питання 20: Choose the correct tense -->
+<div class="question">
+    <p>20. I _____ here for two hours by the time he arrives.</p>
+    <label><input type="radio" name="q20" value="will have been waiting"> will have been waiting</label>
+    <label><input type="radio" name="q20" value="have waited"> have waited</label>
+    <label><input type="radio" name="q20" value="wait"> wait</label>
+</div>
+
+        <button id="submit-btn">Submit</button>
+
+      <div id="result-container" style="display: none;">
+    <!-- Результати тесту будуть відображені тут -->
+</div>
+
+<script>
+document.getElementById("submit-btn").addEventListener("click", function() {
+    var correctAnswers = {
+        q1: "He goes to school.",
+        q2: "Beautiful or delicate",
+        q3: "Ate",
+        q4: "They don't like ice cream.",
+        q5: "Children",
+        q6: "Joyful",
+        q7: "United States of America",
+        q8: "They were playing football.",
+        q9: "Best",
+        q10: "Pretty",
+        q11: "went",
+        q12: "already",
+        q13: "were",
+        q14: "were",
+        q15: "would find",
+        q16: "will have completed",
+        q17: "had finished",
+        q18: "were walking",
+        q19: "will have prepared",
+        q20: "will have been waiting"
+    };
+
+    var answers = [];
+    for (var i = 1; i <= 20; i++) {
+        var input = document.querySelector("input[name='q" + i + "']:checked");
+        if (input) {
+            answers.push({question: "q" + i, answer: input.value});
+        }
+    }
+
+    var correctAnswersCount = 0;
+    for (var i = 0; i < answers.length; i++) {
+        if (answers[i].answer === correctAnswers[answers[i].question]) {
+            correctAnswersCount++;
+        }
+    }
+
+    var resultContainer = document.getElementById("result-container");
+    resultContainer.style.display = "block";
+    resultContainer.innerHTML = "<p>Correct Answers: " + correctAnswersCount + "</p>";
+
+    // Логіка для визначення рівня англійської мови
+    var englishLevel = "";
+    if (correctAnswersCount >= 16 && correctAnswersCount <= 20) {
+        englishLevel = "C2";
+    } else if (correctAnswersCount >= 11 && correctAnswersCount <= 15) {
+        englishLevel = "C1";
+    } else if (correctAnswersCount >= 6 && correctAnswersCount <= 10) {
+        englishLevel = "B2";
+    } else if (correctAnswersCount >= 4 && correctAnswersCount <= 5) {
+        englishLevel = "B1";
+    } else if (correctAnswersCount >= 1 && correctAnswersCount <= 3) {
+        englishLevel = "A2";
+    } else {
+        englishLevel = "A1";
+    }
+
+    resultContainer.innerHTML += "<p>Your English Level: " + englishLevel + "</p>";
+});
+</script>
+    </div>
+</body>
+</html>
